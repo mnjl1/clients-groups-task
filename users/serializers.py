@@ -1,6 +1,3 @@
-from dataclasses import fields
-from pyexpat import model
-from tokenize import group
 from rest_framework.serializers import ModelSerializer
 from .models import Group, User
 
@@ -12,7 +9,7 @@ class GroupSerializer(ModelSerializer):
 
 
 class UserSerializer(ModelSerializer):
-    group = GroupSerializer()
+    group = GroupSerializer(many=False, read_only=True)
     class Meta:
         model = User
         fields = '__all__'
