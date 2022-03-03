@@ -9,4 +9,5 @@ urlpatterns = [
     path('', views.get_routes, name='routes'),
     path('users/', views.get_users_list, name='users-list'),
     path('groups/',views.get_groups_list, name='groups-list'),
+    path('groups/create/',views.create_group, name='group-create'),
 ]
