@@ -13,7 +13,7 @@ class Group(models.Model):
 class User(models.Model):
     username = models.CharField(blank=False, max_length=255)
     created = models.DateTimeField(auto_now_add=True)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, blank=True)
 
     def __str__(self) -> str:
         return self.username
