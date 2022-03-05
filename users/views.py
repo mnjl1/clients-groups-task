@@ -60,7 +60,7 @@ def create_group(request):
 def create_user(request):
     data = request.data
     username = data['username']
-    group = data['group']
+    group = data.group
     user = User.objects.create(username=username, group=group)
     serializer = UserSerializer(user, many=False)
     return Response(serializer)
@@ -78,7 +78,9 @@ def edit_user(request, pk):
 
 @api_view(['DELETE'])
 def delete_user(request, pk):
-    pass
+    user = User.objects.get(id=pk)
+    user.delete()
+    return Response('User deleted')
 
 
 @api_view(['DELETE'])
