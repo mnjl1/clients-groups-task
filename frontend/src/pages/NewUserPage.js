@@ -1,15 +1,15 @@
 import React from 'react';
 
-const NewGroupPage = () => {
-    
-    let createGroup = async (event) => {
-        console.log(event.target.group_name.value, event.target.description.value)
+
+const NewUserPage = () => {
+    let createUser = async (event) => {
+        console.log(event.target.username.value, event.target.group.value)
         let form_inputs = {
-            'group_name': event.target.group_name.value,
-            'description': event.target.description.value
+            'username': event.target.group_name.value,
+            'group': event.target.description.value
         }
 
-        fetch('http://127.0.0.1:8000/api/groups/create/', {
+        fetch('http://127.0.0.1:8000/api/users/create/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -21,22 +21,22 @@ const NewGroupPage = () => {
 
     let handleSubmit = (event) => {
         event.preventDefault()
-        createGroup(event)
+        createUser(event)
     }
 
 
     return (
         <div>
-            <h1>New Group</h1>
+            <h1>New User</h1>
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>
-                        <p>Group name</p>
-                        <input name='group_name'/>
+                        <p>Username</p>
+                        <input name='username'/>
                     </label>
                     <label>
-                        <p>Description</p>
-                        <input name='description'/>
+                        <p>Group</p>
+                        <input name='group'/>
                     </label>
                 </fieldset>
                 <button type='submit'>Submit</button>
@@ -44,5 +44,3 @@ const NewGroupPage = () => {
         </div>
     )
 }
-
-export default NewGroupPage;
