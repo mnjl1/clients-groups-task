@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import UserListPage from './UserListPage';
-import { Button, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 
 const GroupListPage = () => {
@@ -8,7 +8,7 @@ const GroupListPage = () => {
 
     useEffect(()=> {
         getGroupList()
-    })
+    }, [])
 
     let getGroupList = async () => {
         let response = await fetch('http://127.0.0.1:8000/api/groups/', {
@@ -27,7 +27,7 @@ const GroupListPage = () => {
 
     return (
         <div>
-            <Button>Add Group</Button>
+            <Link to='/new-group'>Add Group</Link>
         <Table>
             <thead>
                 <tr>

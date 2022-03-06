@@ -21,8 +21,6 @@ const UserListPage = () => {
         if (response.status === 200) {
             setUserList(data[0][0])
         }
-
-        
     }
 
     return (

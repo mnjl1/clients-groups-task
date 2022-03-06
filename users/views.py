@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny
 from .models import Group,User
 from .serializers import GroupSerializer, UserSerializer
 
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view
 
 from users import serializers
 
@@ -49,6 +49,7 @@ def get_groups_list(request):
 @api_view(['POST'])
 def create_group(request):
     data = request.data
+    print(data)
     group_name = data['group_name']
     description = data['description']
     group = Group.objects.create(group_name=group_name, description=description)
