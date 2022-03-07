@@ -5,6 +5,8 @@ from .serializers import GroupSerializer, UserSerializer
 
 from rest_framework.decorators import api_view
 
+from users import serializers
+
 
 @api_view(['GET'])
 def get_users_list(request):
@@ -34,12 +36,18 @@ def edit_user(request, pk):
     return Response(serializer.data)
 
 
-@api_view(['DELETE'])
+@api_view(['POST'])
 def delete_user(request, pk):
     user = User.objects.get(id=pk)
     user.delete()
-    return Response('User deleted')
+    return redirect('http://localhost:3000/users/')
 
+
+@api_view(['GET'])
+def get_group(request, pk):
+    group = Group.objects.get(id=pk)
+    serializer = GroupSerializer(group, many=False)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
@@ -61,8 +69,6 @@ def create_group(request):
     return Response(serializer.data)
 
 
-
-
 @api_view(['POST'])
 def delete_group(request, pk):
     group = Group.objects.get(id=pk)
@@ -73,7 +79,7 @@ def delete_group(request, pk):
         return Response('Cannot delete. Group is not empty!')
 
 
-@api_view(['PUT'])
+@api_view(['POST'])
 def edit_group(request, pk):
     data = request.data
     group = Group.objects.get(id=pk)

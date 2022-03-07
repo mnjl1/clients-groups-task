@@ -3,8 +3,7 @@ import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 
-const GroupListPage = ({match, history}) => {
-    let groupId = null
+const GroupListPage = ({history}) => {
     let [groupList, setGroupList] = useState([])
 
     useEffect(()=> {
@@ -26,15 +25,15 @@ const GroupListPage = ({match, history}) => {
         }
     }
 
-    const delete_group = async () => {
-        fetch(`http://127.0.0.1:8000/api/groups/${groupId}/delete/`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        history.push('/groups')
-    }
+    // const delete_group = async () => {
+    //     fetch(`http://127.0.0.1:8000/api/groups/${groupId}/delete/`, {
+    //         method: 'DELETE',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     })
+    //     history.push('/groups')
+    // }
 
     return (
         <div>
@@ -55,17 +54,18 @@ const GroupListPage = ({match, history}) => {
                 <td>{group?.id}</td>
                     <td>{group?.group_name}</td>
                     <td>{group?.description}</td>
-                    <td>Edit/ 
+                    <td>
+                        <Link to={`/groups/${group.id}`}>Edit</Link>
+                        
+                        |
                         <form action= {'http://127.0.0.1:8000/api/groups/' + group?.id + '/delete/'} method='POST'>
                             <input type='hidden' data-id={group?.id}></input>
                             <button type="submit">Delete</button>
                         </form>
                     </td>
                 </tr>
-
                 ))
             }
-                
             </tbody>
         </Table>
         </div>

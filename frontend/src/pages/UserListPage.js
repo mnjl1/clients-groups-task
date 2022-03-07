@@ -44,7 +44,13 @@ const UserListPage = () => {
                     <td>{user?.username}</td>
                     <td>{user?.created}</td>
                     <td>{user?.group.group_name}</td>
-                    <td>Edit/Delete</td>
+                    <td>Edit/
+
+                    <form action= {'http://127.0.0.1:8000/api/users/' + user?.id + '/delete/'} method='POST'>
+                            <input type='hidden' data-id={user?.id}></input>
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
                 </tr>
 
                 ))
