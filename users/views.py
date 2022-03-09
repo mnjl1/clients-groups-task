@@ -5,8 +5,6 @@ from .serializers import GroupSerializer, UserSerializer
 
 from rest_framework.decorators import api_view
 
-from users import serializers
-
 
 @api_view(['GET'])
 def get_users_list(request):
@@ -16,21 +14,31 @@ def get_users_list(request):
     return Response(response)
 
 
+@api_view(['GET'])
+def get_user(request, pk):
+    group = User.objects.get(id=pk)
+    serializer = UserSerializer(group, many=False)
+    return Response(serializer.data)
+
 @api_view(['POST'])
 def create_user(request):
     data = request.data
     username = data['username']
-    group = data.group
+    group_id = data['group']['id']
+    group = Group.objects.get(id=group_id)
     user = User.objects.create(username=username, group=group)
     serializer = UserSerializer(user, many=False)
     return Response(serializer)
 
 
-@api_view(['PUT'])
+@api_view(['POST'])
 def edit_user(request, pk):
     data = request.data
     user = User.objects.get(id=pk)
-    serializer = UserSerializer(instance=user, data=data)
+    group_id = data['group']['id']
+    group = Group.objects.get(id=group_id)
+    user.group = group
+    serializer = (UserSerializer(instance=user, data=data))
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
@@ -60,8 +68,10 @@ def get_groups_list(request):
 
 @api_view(['POST'])
 def create_group(request):
+    print('--------')
+    print(request.data)
+    print('--------')
     data = request.data
-    print(data)
     group_name = data['group_name']
     description = data['description']
     group = Group.objects.create(group_name=group_name, description=description)

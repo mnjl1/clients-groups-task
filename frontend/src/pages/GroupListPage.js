@@ -3,7 +3,7 @@ import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 
-const GroupListPage = ({history}) => {
+const GroupListPage = () => {
     let [groupList, setGroupList] = useState([])
 
     useEffect(()=> {
@@ -24,16 +24,6 @@ const GroupListPage = ({history}) => {
             setGroupList(data[0][0])
         }
     }
-
-    // const delete_group = async () => {
-    //     fetch(`http://127.0.0.1:8000/api/groups/${groupId}/delete/`, {
-    //         method: 'DELETE',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         }
-    //     })
-    //     history.push('/groups')
-    // }
 
     return (
         <div>

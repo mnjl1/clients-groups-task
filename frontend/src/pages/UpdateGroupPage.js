@@ -11,10 +11,10 @@ const UpdateGroupPage = () =>{
     let navigate = useNavigate();
 
     useEffect(()=>{
-        getNoteById()
+        getGroupById()
     }, [id])
 
-    let getNoteById = async () => {
+    let getGroupById = async () => {
         let response = await fetch(`http://127.0.0.1:8000/api/groups/${id}`)
         let data = await response.json()
         setGroup(data)
@@ -39,7 +39,6 @@ const UpdateGroupPage = () =>{
     return (
         <div>
             <h1>Update Group</h1>
-            <h2>{group?.body}</h2>
             <form>
                 <fieldset>
                     <label>

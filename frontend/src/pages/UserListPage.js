@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
-import {Button, Table} from 'react-bootstrap'
+import { Table } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const UserListPage = () => {
     let [userList, setUserList] = useState([])
@@ -25,7 +26,7 @@ const UserListPage = () => {
 
     return (
         <div>
-            <Button>Add User</Button>
+            <Link to='/new-user'>Add User</Link>
         <Table>
             <thead>
                 <tr>
@@ -44,8 +45,10 @@ const UserListPage = () => {
                     <td>{user?.username}</td>
                     <td>{user?.created}</td>
                     <td>{user?.group.group_name}</td>
-                    <td>Edit/
-
+                    <td>
+                    
+                    <Link key={index} to={`/users/${user.id}`}>Edit</Link>
+                    /
                     <form action= {'http://127.0.0.1:8000/api/users/' + user?.id + '/delete/'} method='POST'>
                             <input type='hidden' data-id={user?.id}></input>
                             <button type="submit">Delete</button>

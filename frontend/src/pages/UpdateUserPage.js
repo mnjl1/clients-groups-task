@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
-const NewUserPage = () =>{
+const UpdateUserPage = () =>{
 
     const {id} = useParams()
 
@@ -12,6 +12,7 @@ const NewUserPage = () =>{
     let navigate = useNavigate();
 
     useEffect(()=>{
+        getUserById()
         getGroupList()
     }, [id])
 
@@ -30,10 +31,16 @@ const NewUserPage = () =>{
         }
     }
 
+    let getUserById = async () => {
+        let response = await fetch(`http://127.0.0.1:8000/api/users/${id}`)
+        let data = await response.json()
+        setUser(data)
+        console.log(user)
+    }
 
-    let createUser = async () => {
+    let updateUser = async () => {
         console.log('sending...', JSON.stringify(user))
-        fetch(`http://127.0.0.1:8000/api/create/user/`, {
+        fetch(`http://127.0.0.1:8000/api/users/${id}/edit/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,23 +62,23 @@ const NewUserPage = () =>{
             }
         }
         
-        createUser()
+        updateUser()
         navigate('/users')
     }
 
     return (
         <div>
-            <h1>New User</h1>
+            <h1>Update User</h1>
             <form>
                 <fieldset>
                     <label>
                         <p>Username</p>
                         <input onChange={(e)=>{setUser({...user, 'username': e.target.value})}}
-                            name='username'/>
+                            name='username' defaultValue={user?.username}/>
                     </label>
                     <label>
                         <select onChange={(e)=>{setUser({...user, 'group': e.target.value})}}
-                                >
+                                value={user?.group.group_name}>
                                 {
                                     groupList.map((group, index) => (
                                     <option >{group?.group_name}</option>
@@ -81,9 +88,9 @@ const NewUserPage = () =>{
                     </label>
                 </fieldset>
             </form>
-            <button onClick={handleSubmit}>Create</button>
+            <button onClick={handleSubmit}>Update</button>
         </div>
     )
 }
 
-export default NewUserPage;
+export default UpdateUserPage;
