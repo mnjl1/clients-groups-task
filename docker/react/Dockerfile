@@ -3,11 +3,11 @@
 FROM node:17.6.0
 
 # set working directory
-WORKDIR /frontend
-COPY . ./
+WORKDIR /CODE/frontend
 
 # add `/app/node_modules/.bin` to $PATH
-#ENV PATH ../../frontend/node_modules/.bin:$PATH
+ENV PATH /.CODE/frontend/node_modules/.bin:$PATH
+RUN cd /CODE/frontend
 
 # install app dependencies
 RUN npm install
