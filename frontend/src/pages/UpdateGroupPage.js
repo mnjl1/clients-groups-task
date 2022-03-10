@@ -40,6 +40,7 @@ const UpdateGroupPage = () =>{
         <div>
             <h1>Update Group</h1>
             <form>
+                
                 <fieldset>
                     <label>
                         <p>Group name</p>
